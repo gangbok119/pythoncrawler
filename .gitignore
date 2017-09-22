@@ -1,5 +1,7 @@
 #크롤링한 에피소드들의 리스트를 저장할 폴더
-db
+db/
+.idea/
+webtoon/
 
 # Created by https://www.gitignore.io/api/linux,macos,python,pycharm
 

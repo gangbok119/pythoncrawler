@@ -8,6 +8,66 @@ from bs4 import BeautifulSoup
 Episode = namedtuple('Episode', ['no', 'img_url', 'title', 'rating', 'created_date'])
 
 
+# crawler2.py에서 make_list_html 메소드에 사용될 변수들
+LIST_HTML_HEAD = '''<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 10px;
+        }
+        img {
+            height: 34px;
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+            font-size: 11px;
+            height: 34px;
+            line-height: 34px;
+        }
+        .table>thead>tr>td, .table>thead>tr>th {
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<table class="table table-stripped">
+<colgroup>
+    <col width="99">
+    <col width="*">
+    <col width="141">
+    <col width="76">
+</colgroup>
+<thead>
+    <tr>
+        <th>이미지</th>
+        <th>제목</th>
+        <th>별점</th>
+        <th>등록일</th>
+    </tr>
+</thead>
+'''
+
+#img_url에서 썸네일 이미지는 직접 크롤링한 것을 사용하므로 참조위치를 변경해 주어야 함.
+LIST_HTML_TR = '''<tr>
+    <td><img src="{img_url}"></td>
+    <td>{title}</td>
+    <td>{rating}</td>
+    <td>{created_date}</td>
+</tr>
+'''
+
+LIST_HTML_TAIL = '''</table>
+</div>
+</body>
+</html>
+'''
+
+
+
 def get_webtoon_episode_list(webtoon_id, page=1):
     """
     특정 page의 episode 리스트를 리턴하도록 리팩토링
